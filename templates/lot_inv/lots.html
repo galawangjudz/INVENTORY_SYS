@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Lot List
+{% endblock %}
+
+
+{% block content %}
+
+{% load templatehelpers %}
+
+<h1 class="text-center mb-4"> Lot Inventory </h1>
+<div class = "card card-body">
+<form method="GET">
+    {{ myfilter.form }}
+<button type="submit" class="btn btn-primary"> SEARCH </button>
+</form>
+  
+    
+    <br>
+
+    {% if page_obj %}
+
+    <div class = "card card-body">
+        <a class ="btn btn-primary btn-sm btn-block" href="{% url 'lot_inv:add_lot' %}"> Add Lot </a>
+    </div>
+    <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Phase</th>
+                <th>Block </th>
+                <th>Lot </th>
+                <th>Lot Area</th>
+                <th>Price/Sqm </th>
+                <th>Status </th>
+                <th>Title Status </th>
+                <th>Update </th>
+                <th>Remove </th>
+            </tr>
+        </thead>
+        <tbody>
+            
+
+            {% for lot in page_obj %}
+            
+              
+            <tr>
+                
+                
+                {% for acro in acronym %}
+                    {%if lot.c_site == acro.c_code %}
+                        <td>{{ acro }}</td>  
+                    {% endif %}
+                {% endfor %}
+                <td>{{ lot.c_block }}</td>
+                <td>{{ lot.c_lot }}</td> 
+                <td>{{ lot.c_lot_area }}</td> 
+                <td>{{ lot.c_price_sqm }}</td> 
+                <td>{{ lot.c_status }}</td> 
+                <td>{{ lot.c_title }}</td> 
+                <td><a class= "btn btn-sm btn-primary" href = "{% url 'lot_inv:update_lot' lot.id %}">Update</a></td> 
+                <td><a class= "btn btn-sm btn-danger" href = "{% url 'lot_inv:delete_lot' lot.id %}">Delete</a></td> 
+            
+                
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class= "page-item"> <a href="{% my_url 1 'page' request.GET.urlencode %}" class="page-link">&laquo; First </a></li>
+        <li class= "page-item"> <a href="{% my_url page_obj.previous_page_number 'page' request.GET.urlencode %}" class="page-link"> previous </a></li>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+            <li class = "page-item"><a href="{% my_url page_obj.next_page_number 'page' request.GET.urlencode %}" class="page-link"> next </a></li>
+            <li class = "page-item"><a href="{% my_url page_obj.paginator.num_pages 'page' request.GET.urlencode %}" class="page-link">&raquo; last </a></li>    
+        {% endif %}
+
+    </ul>
+    
+    <a>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a>
+
+    </div>
+    {% else %}
+    <td colspan="5">No RECORD FOUND</td>
+
+    
+
+    {% endif %}
+
+</div>
+{% endblock %}
