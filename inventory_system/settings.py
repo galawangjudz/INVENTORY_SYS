@@ -25,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-d6h5i^dhw+1ur^v$7wgtne&3de1=0$tdogx1+zlzmwk6w66trb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['alsclotinv.herokuapp.com','127.0.0.1']
-
+#ALLOWED_HOSTS = ['alsclotinv.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -160,4 +160,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())

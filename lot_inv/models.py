@@ -42,6 +42,7 @@ class LotInv(models.Model):
 
     c_lid = models.CharField(max_length=8, verbose_name= 'lid')
     c_site = models.IntegerField(verbose_name = 'site', null=True, choices = PHASE)
+    #c_site = models.IntegerField(verbose_name = 'site')
     c_block = models.IntegerField( verbose_name= 'block')
     c_lot = models.IntegerField( verbose_name= 'lot')
     c_lot_area = models.IntegerField(verbose_name= 'lot_area')
